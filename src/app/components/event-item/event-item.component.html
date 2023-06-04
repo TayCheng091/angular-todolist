@@ -1,0 +1,32 @@
+<li class="item">
+  <div class="img-container">
+    <img
+      [ngSrc]="eventData.image"
+      [alt]="eventData.title"
+      width="400"
+      height="300"
+    />
+  </div>
+  <div class="content">
+    <div class="title">
+      <h2>{{ eventData.title }}</h2>
+      <div class="space-x-2">
+        <mat-icon fontIcon="edit"></mat-icon>
+        <mat-icon fontIcon="delete" (click)="openDeleteDialog()"></mat-icon>
+      </div>
+    </div>
+    <div class="summary">
+      <div class="date">
+        <mat-icon fontIcon="calendar_today"></mat-icon>
+        <time>{{ eventData.date }}</time>
+      </div>
+      <div class="address">
+        <mat-icon fontIcon="location_on"></mat-icon>
+        <address>{{ eventData.location }}</address>
+      </div>
+      <div>
+        <span>{{ eventData.description }}</span>
+      </div>
+    </div>
+  </div>
+</li>

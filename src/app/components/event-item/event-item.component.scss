@@ -1,0 +1,46 @@
+.item {
+  @apply flex shadow-lg rounded-md overflow-hidden bg-white;
+
+  .img-container {
+    @apply relative w-1/3 min-w-[200px];
+    img {
+      @apply w-full h-full object-cover;
+    }
+  }
+
+  .content {
+    @apply p-5 bg-slate-100 w-full;
+
+    .title {
+      @apply flex justify-between;
+      mat-icon {
+        @apply cursor-pointer text-black-A transition-colors duration-300 hover:text-black;
+      }
+    }
+
+    .summary {
+      @apply grid space-y-2;
+    }
+
+    .date,
+    .address {
+      @apply flex items-center gap-x-2;
+    }
+
+    .address {
+      @apply text-black-6;
+    }
+  }
+}
+
+@screen -sm {
+  .item {
+    @apply flex-col;
+    .img-container {
+      @apply w-full min-w-fit h-56;
+    }
+    .content {
+      @apply p-3;
+    }
+  }
+}
