@@ -16,7 +16,8 @@ module.exports = {
       },
       colors: {
         "black-6": "#666666",
-        "black-A": "#aaaaaa",
+        "black-A": "#AAAAAA",
+        "black-E": "#EEEEEE",
       },
     },
   },

@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { NgFor } from '@angular/common';
+import { Component, Input } from '@angular/core';
+import { IEvent } from 'src/app/models/data-type';
 import { EventItemComponent } from '../event-item/event-item.component';
-import { DUMMY_EVENTS } from 'dummy-data';
-import { NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-event-list',
@@ -11,5 +11,5 @@ import { NgFor, NgIf } from '@angular/common';
   imports: [EventItemComponent, NgFor],
 })
 export class EventListComponent {
-  eventList = DUMMY_EVENTS;
+  @Input() eventList!: IEvent[];
 }

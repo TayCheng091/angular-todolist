@@ -5,10 +5,10 @@
 
 html,
 body {
-  height: 100%;
+  @apply h-full bg-black-E;
 }
 
 body {
-  margin: 0;
+  @apply m-0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
