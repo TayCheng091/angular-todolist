@@ -4,6 +4,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { GeneralDialogComponent } from 'src/app/dialogs/general-dialog/general-dialog.component';
 import { IEvent } from 'src/app/models/data-type';
+import { EventService } from 'src/app/services/event.service';
 
 @Component({
   selector: 'app-event-item',
@@ -15,15 +16,17 @@ import { IEvent } from 'src/app/models/data-type';
 export class EventItemComponent {
   @Input() eventData!: IEvent;
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private eventService: EventService) {}
 
-  openDeleteDialog(): void {
+  openDeleteDialog(id: string): void {
     const dialogRef = this.dialog.open(GeneralDialogComponent, {
       data: {
         title: 'Delete event',
         description: 'Are you sure you want to delete this event?',
         confirmCallBack: () => {
-          console.log('delete event~~');
+          this.eventService.deleteEvent(id).subscribe(() => {
+            console.log('delete success');
+          });
         },
       },
     });

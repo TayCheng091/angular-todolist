@@ -12,13 +12,16 @@
       <h2>{{ eventData.title }}</h2>
       <div class="space-x-2">
         <mat-icon fontIcon="edit"></mat-icon>
-        <mat-icon fontIcon="delete" (click)="openDeleteDialog()"></mat-icon>
+        <mat-icon
+          fontIcon="delete"
+          (click)="openDeleteDialog(eventData.id)"
+        ></mat-icon>
       </div>
     </div>
     <div class="summary">
       <div class="date">
         <mat-icon fontIcon="calendar_today"></mat-icon>
-        <time>{{ eventData.date | date:'yyyy-MM-dd' }}</time>
+        <time>{{ eventData.date | date : "yyyy-MM-dd" }}</time>
       </div>
       <div class="address" *ngIf="eventData.location">
         <mat-icon fontIcon="location_on"></mat-icon>

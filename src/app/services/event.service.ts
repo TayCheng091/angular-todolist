@@ -9,12 +9,24 @@ import { LocalStorageKey } from './../models/data-type';
 export class EventService {
   constructor() {}
 
-  postAddEvent(payload: IEvent): Observable<any> {
+  getEvents(): IEvent[] {
     let curEvents = [];
     if (localStorage.getItem(LocalStorageKey)) {
       curEvents = JSON.parse(<string>localStorage.getItem(LocalStorageKey));
     }
+    return curEvents;
+  }
+
+  postAddEvent(payload: IEvent): Observable<any> {
+    let curEvents = this.getEvents();
     curEvents.push(payload);
+    localStorage.setItem(LocalStorageKey, JSON.stringify(curEvents));
+    return of(null);
+  }
+
+  deleteEvent(id: string): Observable<any> {
+    let curEvents = this.getEvents();
+    curEvents = curEvents.filter((event) => event.id !== id);
     localStorage.setItem(LocalStorageKey, JSON.stringify(curEvents));
     return of(null);
   }
