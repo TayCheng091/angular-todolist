@@ -34,8 +34,9 @@ export class EventItemComponent {
     private el: ElementRef
   ) {}
 
-  eventComplete() {
-    const { id, title, description, date, location, image } = this.eventData;
+  toggleEventComplete() {
+    const { id, title, description, date, location, image, isCompleted } =
+      this.eventData;
     this.curEvent = new ToDoEvent(
       id,
       title,
@@ -43,7 +44,7 @@ export class EventItemComponent {
       date,
       location,
       image,
-      true
+      !isCompleted
     );
 
     console.log('1. curEvent = ', this.curEvent);

@@ -14,7 +14,7 @@
         <mat-icon
           [ngClass]="{ '!text-green-600': eventData.isCompleted }"
           fontIcon="check_circle"
-          (click)="eventData.isCompleted || eventComplete()"
+          (click)="toggleEventComplete()"
         ></mat-icon>
       </h2>
       <div *ngIf="!eventData.isCompleted" class="space-x-2">
