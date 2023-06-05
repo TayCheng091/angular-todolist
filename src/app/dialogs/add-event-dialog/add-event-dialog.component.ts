@@ -1,14 +1,110 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
+import {
+  DateAdapter,
+  MatNativeDateModule,
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE,
+} from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { IEvent } from 'src/app/models/data-type';
+import { EventService } from 'src/app/services/event.service';
+import { v4 as uuidv4 } from 'uuid';
+
+interface IEventForm {
+  title: FormControl<string | null>;
+  description?: FormControl<string | null>;
+  location?: FormControl<string | null>;
+  date: FormControl<string | null>;
+  image?: FormControl<string | null>;
+}
+
+export const DATE_FORMATS = {
+  parse: {
+    dateInput: 'YYYY-MM-DD',
+  },
+  display: {
+    dateInput: 'YYYY-MM-DD',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 @Component({
   selector: 'app-add-event-dialog',
   standalone: true,
-  imports: [CommonModule, MatDialogModule, MatFormFieldModule, MatButtonModule],
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
+  providers: [
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE],
+    },
+    { provide: MAT_DATE_FORMATS, useValue: DATE_FORMATS },
+  ],
   templateUrl: './add-event-dialog.component.html',
   styleUrls: ['./add-event-dialog.component.scss'],
 })
-export class AddEventDialogComponent {}
+export class AddEventDialogComponent implements OnInit {
+  @Output() confirmCallback: EventEmitter<void> = new EventEmitter();
+
+  eventForm: FormGroup = new FormGroup<IEventForm>({
+    title: new FormControl<string | null>(null, [Validators.required]),
+    description: new FormControl<string | null>(null),
+    location: new FormControl<string | null>(null),
+    date: new FormControl<string | null>(null, [Validators.required]),
+    image: new FormControl<string | null>(null),
+  });
+
+  minDate = new Date();
+
+  constructor(
+    private dialogRef: MatDialogRef<AddEventDialogComponent>,
+    private eventService: EventService
+  ) {}
+
+  ngOnInit(): void {}
+
+  cancel() {
+    this.dialogRef.close();
+  }
+
+  addEvent() {
+    if (this.eventForm.invalid) return;
+
+    const payload: IEvent = {
+      id: uuidv4(),
+      ...this.eventForm.value,
+      isCompleted: false,
+    };
+
+    this.eventService.postAddEvent(payload).subscribe(() => {
+      this.confirmCallback.emit();
+      this.dialogRef.close();
+    });
+  }
+}

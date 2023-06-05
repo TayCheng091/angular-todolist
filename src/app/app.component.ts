@@ -3,8 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { EventListComponent } from './components/event-list/event-list.component';
 import { AddEventDialogComponent } from './dialogs/add-event-dialog/add-event-dialog.component';
-import { IEvent } from './models/data-type';
-import { EventService } from './services/event.service';
+import { IEvent, LocalStorageKey } from './models/data-type';
 
 @Component({
   selector: 'app-root',
@@ -19,8 +18,8 @@ export class AppComponent implements OnInit {
   eventListStr: string | null;
   eventList: IEvent[] = [];
 
-  constructor(private eventService: EventService, private dialog: MatDialog) {
-    this.eventListStr = localStorage.getItem('eventList');
+  constructor(private dialog: MatDialog) {
+    this.eventListStr = localStorage.getItem(LocalStorageKey);
     if (this.eventListStr) {
       this.eventList = JSON.parse(this.eventListStr);
     }
@@ -30,5 +29,9 @@ export class AppComponent implements OnInit {
 
   addEvent() {
     const dialogRef = this.dialog.open(AddEventDialogComponent);
+
+    dialogRef.componentInstance.confirmCallback.subscribe(() => {
+      console.log(`add event finished`);
+    });
   }
 }

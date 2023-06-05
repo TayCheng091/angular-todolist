@@ -7,3 +7,5 @@ export interface IEvent {
   image: string;
   isCompleted: boolean;
 }
+
+export const LocalStorageKey = 'eventList';

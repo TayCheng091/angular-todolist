@@ -1,7 +1,7 @@
 <li class="item">
   <div class="img-container">
     <img
-      [ngSrc]="eventData.image"
+      [ngSrc]="eventData.image || './assets/images/image-solid.svg'"
       [alt]="eventData.title"
       width="400"
       height="300"
@@ -18,9 +18,9 @@
     <div class="summary">
       <div class="date">
         <mat-icon fontIcon="calendar_today"></mat-icon>
-        <time>{{ eventData.date }}</time>
+        <time>{{ eventData.date | date:'yyyy-MM-dd' }}</time>
       </div>
-      <div class="address">
+      <div class="address" *ngIf="eventData.location">
         <mat-icon fontIcon="location_on"></mat-icon>
         <address>{{ eventData.location }}</address>
       </div>

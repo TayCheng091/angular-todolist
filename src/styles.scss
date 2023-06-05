@@ -12,3 +12,8 @@ body {
   @apply m-0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+// reboot material
+.mdc-dialog__actions {
+  padding: 0 20px 20px 20px !important;
+}
