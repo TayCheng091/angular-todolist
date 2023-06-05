@@ -9,13 +9,25 @@
   </div>
   <div class="content">
     <div class="title">
-      <h2>{{ eventData.title }}</h2>
-      <div class="space-x-2">
-        <mat-icon fontIcon="edit"></mat-icon>
+      <h2 class="flex items-center">
+        {{ eventData.title }}
         <mat-icon
-          fontIcon="delete"
-          (click)="openDeleteDialog(eventData.id)"
+          [ngClass]="{ '!text-green-600': eventData.isCompleted }"
+          fontIcon="check_circle"
+          (click)="eventData.isCompleted || eventComplete()"
         ></mat-icon>
+      </h2>
+      <div *ngIf="!eventData.isCompleted" class="space-x-2">
+        <ng-container *ngIf="!isEdit; else save">
+          <mat-icon fontIcon="edit" (click)="toggleEdit()"></mat-icon>
+          <mat-icon
+            fontIcon="delete"
+            (click)="openDeleteDialog(eventData.id)"
+          ></mat-icon>
+        </ng-container>
+        <ng-template #save>
+          <mat-icon fontIcon="save" (click)="toggleEdit()"></mat-icon>
+        </ng-template>
       </div>
     </div>
     <div class="summary">
@@ -28,7 +40,20 @@
         <address>{{ eventData.location }}</address>
       </div>
       <div>
-        <span>{{ eventData.description }}</span>
+        <ng-container *ngIf="!isEdit; else editDesc">
+          <span>{{ eventData.description }}</span>
+        </ng-container>
+        <ng-template #editDesc>
+          <textarea
+            #editDescInput
+            class="w-full p-2"
+            [(ngModel)]="curEvent.description"
+            cdkTextareaAutosize
+            #autosize="cdkTextareaAutosize"
+            cdkAutosizeMinRows="3"
+            cdkAutosizeMaxRows="5"
+          ></textarea>
+        </ng-template>
       </div>
     </div>
   </div>

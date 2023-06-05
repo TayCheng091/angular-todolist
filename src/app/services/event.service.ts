@@ -24,6 +24,18 @@ export class EventService {
     return of(null);
   }
 
+  patchEvent(payload: IEvent): Observable<any> {
+    console.log('payload = ', payload);
+    let curEvents = this.getEvents();
+    let targetEventIdx = curEvents.findIndex(
+      (event) => event.id === payload.id
+    );
+    curEvents[targetEventIdx] = { ...payload };
+
+    localStorage.setItem(LocalStorageKey, JSON.stringify(curEvents));
+    return of(null);
+  }
+
   deleteEvent(id: string): Observable<any> {
     let curEvents = this.getEvents();
     curEvents = curEvents.filter((event) => event.id !== id);
