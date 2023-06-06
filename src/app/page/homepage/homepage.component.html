@@ -1,21 +1,23 @@
-<button mat-raised-button color="primary" (click)="addEvent()">
-  Add Event
-</button>
-<!-- filter bar -->
-<div>
-  <h4>Filter your to-do-list:</h4>
-  <section [formGroup]="filterForm">
-    <p>
-      <mat-checkbox formControlName="completed">Done</mat-checkbox>
-      <mat-checkbox formControlName="notCompleted">To do</mat-checkbox>
-      <mat-checkbox formControlName="sortByDateDescending">Date descending order</mat-checkbox>
-    </p>
-  </section>
-
-  <section [formGroup]="filterForm">
-    <h4>You chose:</h4>
-    {{filterForm.value | json}}
-  </section>
-
+<div class="flex items-start -md:flex-col-reverse -md:gap-y-2">
+  <div>
+    <h4>Filter your to-do-list:</h4>
+    <section [formGroup]="filterForm">
+      <p>
+        <mat-checkbox formControlName="completed">Done</mat-checkbox>
+        <mat-checkbox formControlName="notCompleted">To do</mat-checkbox>
+        <mat-checkbox formControlName="sortByDateDescending"
+          >Date descending order</mat-checkbox
+        >
+      </p>
+    </section>
+  </div>
+  <button
+    class="ml-auto -md:mr-auto"
+    mat-raised-button
+    color="primary"
+    (click)="addEvent()"
+  >
+    Add Event
+  </button>
 </div>
 <app-event-list [eventList]="filteredEventList"></app-event-list>
