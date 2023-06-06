@@ -1,3 +1,4 @@
+export const LocalStorageKey = 'eventList';
 export interface IEvent {
   id: string;
   title: string;
@@ -7,5 +8,3 @@ export interface IEvent {
   image: string;
   isCompleted: boolean;
 }
-
-export const LocalStorageKey = 'eventList';

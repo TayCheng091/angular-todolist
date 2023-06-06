@@ -2,6 +2,7 @@ import { TextFieldModule } from '@angular/cdk/text-field';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MatRippleModule } from '@angular/material/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { GeneralDialogComponent } from 'src/app/dialogs/general-dialog/general-dialog.component';
@@ -18,6 +19,7 @@ import { EventService } from 'src/app/services/event.service';
     MatDialogModule,
     FormsModule,
     TextFieldModule,
+    MatRippleModule,
   ],
   templateUrl: './event-item.component.html',
   styleUrls: ['./event-item.component.scss'],
@@ -28,11 +30,7 @@ export class EventItemComponent {
   isEdit: boolean = false;
   curEvent: any;
 
-  constructor(
-    private dialog: MatDialog,
-    private eventService: EventService,
-    private el: ElementRef
-  ) {}
+  constructor(private dialog: MatDialog, private eventService: EventService) {}
 
   toggleEventComplete() {
     const { id, title, description, date, location, image, isCompleted } =
@@ -46,8 +44,6 @@ export class EventItemComponent {
       image,
       !isCompleted
     );
-
-    console.log('1. curEvent = ', this.curEvent);
 
     this.eventService.patchEvent({ ...this.curEvent });
   }
@@ -66,7 +62,7 @@ export class EventItemComponent {
     });
   }
 
-  toggleEdit(): void {
+  toggleEdit(type: 'edit' | 'save' | 'cancel'): void {
     this.isEdit = !this.isEdit;
     if (this.isEdit) {
       const { id, title, description, date, location, image, isCompleted } =
@@ -85,6 +81,9 @@ export class EventItemComponent {
         this.editDescInput.nativeElement.focus();
       });
     } else {
+      if (type === 'cancel') {
+        return;
+      }
       this.eventService.patchEvent({ ...this.curEvent });
     }
   }

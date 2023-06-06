@@ -12,4 +12,8 @@ import { EventItemComponent } from '../event-item/event-item.component';
 })
 export class EventListComponent {
   @Input() eventList!: IEvent[];
+
+  trackByFn(index: number, item: any) {
+    return item.id;
+  }
 }

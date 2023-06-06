@@ -1,8 +1,10 @@
 <div>
   <ul class="grid gap-4">
     <app-event-item
-      *ngFor="let event of eventList"
+      *ngFor="let event of eventList;trackBy:trackByFn"
       [eventData]="event"
     ></app-event-item>
   </ul>
 </div>
+
+
