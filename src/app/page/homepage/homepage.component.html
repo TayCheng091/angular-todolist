@@ -13,16 +13,24 @@
       Add Event
     </button>
     <div *ngIf="originEventList.length!==0">
-      <h4>Filter your to-do-list:</h4>
       <section [formGroup]="filterForm">
+        <h4>Filter your to-do-list :</h4>
         <p>
           <mat-checkbox formControlName="completed">Done</mat-checkbox>
           <mat-checkbox formControlName="notCompleted">To do</mat-checkbox>
           <mat-checkbox formControlName="sortByDateDescending"
-            >Date descending order</mat-checkbox
+          >Date descending order</mat-checkbox
           >
         </p>
+        <h4>Search title :</h4>
+
+        <mat-form-field appearance="fill" >
+          <mat-label>Type keyword</mat-label>
+          <input matInput type="text" formControlName="keyword" >
+        </mat-form-field>
       </section>
+
+
     </div>
   </div>
 </div>
