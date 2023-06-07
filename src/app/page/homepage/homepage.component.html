@@ -1,23 +1,29 @@
-<div class="flex items-start -md:flex-col-reverse -md:gap-y-2">
-  <div>
-    <h4>Filter your to-do-list:</h4>
-    <section [formGroup]="filterForm">
-      <p>
-        <mat-checkbox formControlName="completed">Done</mat-checkbox>
-        <mat-checkbox formControlName="notCompleted">To do</mat-checkbox>
-        <mat-checkbox formControlName="sortByDateDescending"
-          >Date descending order</mat-checkbox
-        >
-      </p>
-    </section>
+<div >
+  <h1 *ngIf="originEventList.length===0" class="text-center">
+    Add you first event !
+  </h1>
+  <div class="flex flex-row-reverse items-start space-y-3 -sm:block">
+    <button
+      class="ml-auto -sm:mr-auto"
+      [ngClass]="{'mx-auto':originEventList.length===0}"
+      mat-raised-button
+      color="primary"
+      (click)="addEvent()"
+    >
+      Add Event
+    </button>
+    <div *ngIf="originEventList.length!==0">
+      <h4>Filter your to-do-list:</h4>
+      <section [formGroup]="filterForm">
+        <p>
+          <mat-checkbox formControlName="completed">Done</mat-checkbox>
+          <mat-checkbox formControlName="notCompleted">To do</mat-checkbox>
+          <mat-checkbox formControlName="sortByDateDescending"
+            >Date descending order</mat-checkbox
+          >
+        </p>
+      </section>
+    </div>
   </div>
-  <button
-    class="ml-auto -md:mr-auto"
-    mat-raised-button
-    color="primary"
-    (click)="addEvent()"
-  >
-    Add Event
-  </button>
 </div>
 <app-event-list [eventList]="filteredEventList"></app-event-list>

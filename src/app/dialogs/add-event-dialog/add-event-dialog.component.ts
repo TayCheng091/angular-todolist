@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import {
   DateAdapter,
   MatNativeDateModule,
+  MatOptionModule,
   MAT_DATE_FORMATS,
   MAT_DATE_LOCALE,
 } from '@angular/material/core';
@@ -19,19 +20,21 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { IEvent } from 'src/app/models/data-type';
 import { EventService } from 'src/app/services/event.service';
 import { v4 as uuidv4 } from 'uuid';
+import { PriorityList } from './../../models/data-type';
 
 interface IEventForm {
   title: FormControl<string | null>;
   description?: FormControl<string | null>;
   location?: FormControl<string | null>;
   date: FormControl<string | null>;
-  image?: FormControl<string | null>;
+  priority?: FormControl<string | null>;
 }
 
-export const DATE_FORMATS = {
+const DATE_FORMATS = {
   parse: {
     dateInput: 'YYYY-MM-DD',
   },
@@ -55,6 +58,8 @@ export const DATE_FORMATS = {
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
+    MatSelectModule,
+    MatOptionModule,
     FormsModule,
     ReactiveFormsModule,
   ],
@@ -77,8 +82,10 @@ export class AddEventDialogComponent implements OnInit {
     description: new FormControl<string | null>(null),
     location: new FormControl<string | null>(null),
     date: new FormControl<string | null>(null, [Validators.required]),
-    image: new FormControl<string | null>(null),
+    priority: new FormControl<'high' | 'low' | null>('low'),
   });
+
+  priorityOptions = Object.values(PriorityList);
 
   minDate = new Date();
 
@@ -94,6 +101,7 @@ export class AddEventDialogComponent implements OnInit {
   }
 
   addEvent() {
+    console.log(`eventForm = `, this.eventForm);
     if (this.eventForm.invalid) return;
 
     const payload: IEvent = {

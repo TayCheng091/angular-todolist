@@ -5,6 +5,18 @@ export interface IEvent {
   description: string;
   location: string;
   date: string;
-  image: string;
+  priority: TPriority;
   isCompleted: boolean;
 }
+
+export type TPriority = 'high' | 'low';
+
+export enum PriorityList {
+  high = 'high',
+  low = 'low',
+}
+
+export const PriorityImg = {
+  high: './assets/images/priority_high.jpeg',
+  low: './assets/images/priority_low.jpeg',
+};

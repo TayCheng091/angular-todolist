@@ -2,8 +2,8 @@
 <form [formGroup]="eventForm">
 
   <div  mat-dialog-content >
-    <div class="grid grid-cols-2 gap-3">
-      <mat-form-field appearance="fill" class="col-span-2">
+    <div class="grid grid-cols-2 gap-3 -sm:grid-cols-1">
+      <mat-form-field appearance="fill" class="col-span-2 -sm:col-span-1">
         <mat-label>Event name</mat-label>
         <input matInput formControlName="title" >
       </mat-form-field>
@@ -28,10 +28,12 @@
         <input matInput formControlName="location">
       </mat-form-field>
       <mat-form-field appearance="fill">
-        <mat-label>Image</mat-label>
-        <input matInput formControlName="image">
+        <mat-label>Priority</mat-label>
+        <mat-select formControlName="priority">
+          <mat-option *ngFor="let priority of priorityOptions" [value]="priority" >{{priority}}</mat-option>
+        </mat-select>
       </mat-form-field>
-      <mat-form-field appearance="fill" class="col-span-2 ">
+      <mat-form-field appearance="fill" class="col-span-2 -sm:col-span-1">
         <mat-label>Description</mat-label>
         <textarea matInput formControlName="description"
           cdkTextareaAutosize

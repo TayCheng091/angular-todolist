@@ -1,7 +1,7 @@
 <li class="item" >
   <div class="img-container">
     <img
-      [src]="eventData.image || './assets/images/image-solid.svg'"
+      [ngSrc]="priorityImgObj[eventData.priority]"
       [alt]="eventData.title"
       width="400"
       height="300"
@@ -18,7 +18,7 @@
           (click)="toggleEventComplete()"
         ></mat-icon>
       </h2>
-      <div *ngIf="!eventData.isCompleted" class="space-x-2">
+      <div class="space-x-2">
         <ng-container *ngIf="!isEdit; else editMode">
           <mat-icon fontIcon="edit" (click)="toggleEdit('edit')"></mat-icon>
           <mat-icon

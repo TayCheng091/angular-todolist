@@ -50,6 +50,7 @@ export class HomepageComponent {
     this.eventService.eventList$.subscribe((eventList) => {
       this.originEventList = JSON.parse(JSON.stringify(eventList));
       this.filteredEventList = JSON.parse(JSON.stringify(eventList));
+      this.filterForm.reset();
     });
 
     this.filterForm.valueChanges.subscribe((filterStatus) => {
@@ -66,7 +67,7 @@ export class HomepageComponent {
           );
         }
       }
-      this.toggleSortByDate(!!this.filterForm.value.sortByDateDescending);
+      this.sortByDate(!!this.filterForm.value.sortByDateDescending);
     });
   }
 
@@ -80,7 +81,7 @@ export class HomepageComponent {
     });
   }
 
-  toggleSortByDate(isDescending: boolean) {
+  sortByDate(isDescending: boolean) {
     console.log(`isDescending = `, isDescending);
     this.filteredEventList = this.filteredEventList.sort((a, b) => {
       const dateA = new Date(a.date),

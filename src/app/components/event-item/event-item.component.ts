@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { GeneralDialogComponent } from 'src/app/dialogs/general-dialog/general-dialog.component';
 import { IEvent } from 'src/app/models/data-type';
 import { EventService } from 'src/app/services/event.service';
+import { PriorityImg, TPriority } from './../../models/data-type';
 
 @Component({
   selector: 'app-event-item',
@@ -29,11 +30,12 @@ export class EventItemComponent {
   @ViewChild('editDescInput', { static: false }) editDescInput!: ElementRef;
   isEdit: boolean = false;
   curEvent: any;
+  priorityImgObj = PriorityImg;
 
   constructor(private dialog: MatDialog, private eventService: EventService) {}
 
   toggleEventComplete() {
-    const { id, title, description, date, location, image, isCompleted } =
+    const { id, title, description, date, location, priority, isCompleted } =
       this.eventData;
     this.curEvent = new ToDoEvent(
       id,
@@ -41,7 +43,7 @@ export class EventItemComponent {
       description,
       date,
       location,
-      image,
+      priority,
       !isCompleted
     );
 
@@ -65,7 +67,7 @@ export class EventItemComponent {
   toggleEdit(type: 'edit' | 'save' | 'cancel'): void {
     this.isEdit = !this.isEdit;
     if (this.isEdit) {
-      const { id, title, description, date, location, image, isCompleted } =
+      const { id, title, description, date, location, priority, isCompleted } =
         this.eventData;
       this.curEvent = new ToDoEvent(
         id,
@@ -73,7 +75,7 @@ export class EventItemComponent {
         description,
         date,
         location,
-        image,
+        priority,
         isCompleted
       );
 
@@ -95,7 +97,7 @@ class ToDoEvent {
   description: string;
   date: string;
   location: string;
-  image: string;
+  priority: TPriority;
   isCompleted: boolean;
   constructor(
     id: string,
@@ -103,7 +105,7 @@ class ToDoEvent {
     description: string,
     date: string,
     location: string,
-    image: string,
+    priority: TPriority,
     isCompleted: boolean
   ) {
     this.id = id;
@@ -111,7 +113,7 @@ class ToDoEvent {
     this.description = description;
     this.date = date;
     this.location = location;
-    this.image = image;
+    this.priority = priority;
     this.isCompleted = isCompleted;
   }
 }
