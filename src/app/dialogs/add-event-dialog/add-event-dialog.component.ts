@@ -22,8 +22,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { IEvent } from 'src/app/models/data-type';
-import { EventService } from 'src/app/services/event.service';
 import { v4 as uuidv4 } from 'uuid';
+import { EventService } from '../../services/event.service';
 import { PriorityList } from './../../models/data-type';
 
 interface IEventForm {

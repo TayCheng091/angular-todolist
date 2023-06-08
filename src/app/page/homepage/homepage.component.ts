@@ -7,10 +7,10 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { debounceTime } from 'rxjs';
-import { EventListComponent } from 'src/app/components/event-list/event-list.component';
-import { AddEventDialogComponent } from 'src/app/dialogs/add-event-dialog/add-event-dialog.component';
 import { IEvent } from 'src/app/models/data-type';
 import { EventService } from 'src/app/services/event.service';
+import { EventListComponent } from '../../components/event-list/event-list.component';
+import { AddEventDialogComponent } from '../../dialogs/add-event-dialog/add-event-dialog.component';
 
 interface IFilerFrom {
   completed: boolean;

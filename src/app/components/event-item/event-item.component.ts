@@ -5,9 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { MatRippleModule } from '@angular/material/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { GeneralDialogComponent } from 'src/app/dialogs/general-dialog/general-dialog.component';
 import { IEvent } from 'src/app/models/data-type';
-import { EventService } from 'src/app/services/event.service';
+import { GeneralDialogComponent } from '../../dialogs/general-dialog/general-dialog.component';
+import { EventService } from '../../services/event.service';
 import { PriorityImg, TPriority } from './../../models/data-type';
 
 @Component({
@@ -91,7 +91,7 @@ export class EventItemComponent {
   }
 }
 
-class ToDoEvent {
+export class ToDoEvent {
   id: string;
   title: string;
   description: string;
